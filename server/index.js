@@ -33,7 +33,15 @@ async function run() {
         // make a collection name tasks
         const taskCollection = client.db("kRitetaskDB").collection("tasks");
 
-       
+        // read the data in the client site  from server site
+        app.get("/task", async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email }
+
+            const result = await taskCollection.find(query).toArray();
+            res.send(result);
+
+        })
 
         // insert data in the database where there is a collection named tasks
         app.post("/task", async (req, res) => {

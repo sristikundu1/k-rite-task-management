@@ -6,6 +6,7 @@ import SignUp from "../Signup/Signup";
 import Errorpage from "../ErrorPage/Errorpage";
 import DashBoardLayout from "../../Layout/DashBoardLayout";
 import CreateTask from "../../Components/Dashboard/pages/CreateTask/CreateTask";
+import TaskList from "../../Components/Dashboard/pages/TaskList/TaskList";
 
 
 const Route = createBrowserRouter([
@@ -35,6 +36,10 @@ const Route = createBrowserRouter([
             {
                 path:'addtask',
                 element:<CreateTask/>
+            },
+            {
+                path:'tasklist',
+                element:<TaskList/>
             }
         ]
     }
