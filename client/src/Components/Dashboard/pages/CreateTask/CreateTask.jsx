@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 // import Swal from "sweetalert2";
-// import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../../hooks/useAuth";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 
 const CreateTask = () => {
     const { user } = useAuth();
 
     const { register, handleSubmit, reset } = useForm();
-    // const axiosPublic = useAxiosPublic();
+    const axiosPublic = useAxiosPublic();
 
     const onSubmit = async (data) => {
         console.log(data)
@@ -18,26 +19,27 @@ const CreateTask = () => {
             email: data.email,
             description: data.description,
             deadline: data.deadline,
-            priority: data.priority
+            category: data.category
         }
      
         console.log(taskItem)
-        // const taskRes = await axiosPublic.post("/task", taskItem);
+        const taskRes = await axiosPublic.post("/task", taskItem);
 
-        // console.log(taskRes.data);
+        console.log(taskRes.data);
 
 
-        // if (taskRes.data.insertedId) {
-        //     reset();
+        if (taskRes.data.insertedId) {
+            reset();
 
-        //     Swal.fire({
-        //         position: "top-end",
-        //         icon: "success",
-        //         title: `${data.title} added to your task list`,
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //     });
-        // }
+            // Swal.fire({
+            //     position: "top-end",
+            //     icon: "success",
+            //     title: `${data.title} added to your task list`,
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // });
+            toast.success(`${data.title} added to your task list`)
+        }
     }
 
         return (
@@ -84,14 +86,14 @@ const CreateTask = () => {
                             </div>
                             <div className="w-full lg:w-1/2">
                                 <label className="label">
-                                    <span className="label-text text-[#444] font-semibold">Task Priority</span>
+                                    <span className="label-text text-[#444] font-semibold">Task Category</span>
 
                                 </label>
-                                <select defaultValue="default" {...register("priority", { required: true })} className="select select-bordered w-full ">
-                                    <option disabled value="default">Task priority</option>
-                                    <option>Low</option>
-                                    <option>moderate</option>
-                                    <option>high</option>
+                                <select defaultValue="default" {...register("category", { required: true })} className="select select-bordered w-full ">
+                                    <option disabled value="default">Task Category</option>
+                                    <option>ToDo</option>
+                                    <option>In-Progress</option>
+                                    <option>Completed</option>
                                 </select>
                             </div>
                         </div>
