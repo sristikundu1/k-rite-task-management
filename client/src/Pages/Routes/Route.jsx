@@ -7,6 +7,7 @@ import Errorpage from "../ErrorPage/Errorpage";
 import DashBoardLayout from "../../Layout/DashBoardLayout";
 import CreateTask from "../../Components/Dashboard/pages/CreateTask/CreateTask";
 import TaskList from "../../Components/Dashboard/pages/TaskList/TaskList";
+import EditTask from "../../Components/Dashboard/pages/EditTask/EditTask";
 
 
 const Route = createBrowserRouter([
@@ -40,6 +41,11 @@ const Route = createBrowserRouter([
             {
                 path:'tasklist',
                 element:<TaskList/>
+            },
+            {
+                path:'editask/:id',
+                element:<EditTask/>,
+                loader:({params}) => fetch(`http://localhost:5000/task/${params.id}`)
             }
         ]
     }

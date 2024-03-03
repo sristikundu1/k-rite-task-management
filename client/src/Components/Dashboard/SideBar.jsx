@@ -65,10 +65,7 @@ const SideBar = () => {
                                 icon={BsListTask}
                                 label='Task List'
                                 address='/dashboard/tasklist'></ManuItem>
-                            <ManuItem
-                                icon={RiImageEditFill }
-                                label='Edit Task'
-                                address='/dashboard/editask'></ManuItem>
+                           
 
                         </nav>
                     </div>

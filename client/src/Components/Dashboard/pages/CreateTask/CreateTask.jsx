@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
-// import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 const CreateTask = () => {
     const { user } = useAuth();
-
+    const navigate = useNavigate()
     const { register, handleSubmit, reset } = useForm();
     const axiosPublic = useAxiosPublic();
 
@@ -30,15 +30,8 @@ const CreateTask = () => {
 
         if (taskRes.data.insertedId) {
             reset();
-
-            // Swal.fire({
-            //     position: "top-end",
-            //     icon: "success",
-            //     title: `${data.title} added to your task list`,
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
             toast.success(`${data.title} added to your task list`)
+            navigate("/dashboard/tasklist")
         }
     }
 

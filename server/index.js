@@ -43,6 +43,12 @@ async function run() {
 
         })
 
+        app.get("/alltask", async (req, res) => {
+            const result = await taskCollection.find().toArray();
+            res.send(result);
+
+        })
+
         // insert data in the database where there is a collection named tasks
         app.post("/task", async (req, res) => {
             const taskItem = req.body;
@@ -50,6 +56,42 @@ async function run() {
             const result = await taskCollection.insertOne(taskItem)
             res.send(result);
         })
+
+        app.get('/task/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) } 
+            const result = await taskCollection.findOne(query);
+            res.send(result);
+        });
+
+
+        app.put("/task/:id", async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true }
+            const updatedTask = req.body;
+            const Task = {
+                $set: {
+                    title: updatedTask.title,
+                    description: updatedTask.description,
+                    deadline: updatedTask.deadline,
+                    category: updatedTask.category
+                }
+            }
+            const result = await taskCollection.updateOne(filter, Task, options);
+            res.send(result);
+
+        })
+
+
+        // delete task from database 
+        app.delete("/task/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await taskCollection.deleteOne(query)
+            res.send(result);
+        })
+
 
 
 
