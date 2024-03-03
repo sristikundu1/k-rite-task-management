@@ -7,7 +7,7 @@ import { FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
 import { MdAddTask } from "react-icons/md";
 import { BsListTask } from "react-icons/bs";
-import { RiImageEditFill } from "react-icons/ri";
+import { FaHome } from "react-icons/fa";
 import useAuth from '../../hooks/useAuth'
 import ManuItem from './MenuItem'
 
@@ -16,7 +16,16 @@ const SideBar = () => {
 
     const [isActive, setActive] = useState(false)
 
+    const handleLogOut = () => {
+        logOut()
+            .then((result) => {
+                console.log(result.user);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
 
+    }
 
 
     // Sidebar Responsive Handler
@@ -77,9 +86,13 @@ const SideBar = () => {
                         icon={FcSettings}
                         label='Profile'
                         address='/dashboard/profile'></ManuItem>
+                    <ManuItem
+                        icon={FaHome}
+                        label='Home'
+                        address='/'></ManuItem>
 
                     <button
-                        onClick={logOut}
+                        onClick={handleLogOut}
                         className='flex w-full items-center px-4 py-2 mt-5 text-white bg-[#0a9396] hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'>
                         <GrLogout className='w-5 h-5' />
 

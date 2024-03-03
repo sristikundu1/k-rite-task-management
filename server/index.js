@@ -33,6 +33,12 @@ async function run() {
         // make a collection name tasks
         const taskCollection = client.db("kRitetaskDB").collection("tasks");
 
+        app.get("/taskCount", async (req, res) => {
+            const count = await taskCollection.estimatedDocumentCount();
+            res.send({count});
+
+        })
+
         // read the data in the client site  from server site
         app.get("/task", async (req, res) => {
             const email = req.query.email;
@@ -43,11 +49,17 @@ async function run() {
 
         })
 
-        app.get("/alltask", async (req, res) => {
-            const result = await taskCollection.find().toArray();
-            res.send(result);
+        
+        // app.get("/alltask", async (req, res) => {
+        //     const page = parent(req.query.page);
+        //     const size = parent(req.query.size);
+        //     const result = await taskCollection.find()
+        //     .skip(page * size)
+        //     .limit(size)
+        //     .toArray();
+        //     res.send(result);
 
-        })
+        // })
 
         // insert data in the database where there is a collection named tasks
         app.post("/task", async (req, res) => {

@@ -8,6 +8,8 @@ import DashBoardLayout from "../../Layout/DashBoardLayout";
 import CreateTask from "../../Components/Dashboard/pages/CreateTask/CreateTask";
 import TaskList from "../../Components/Dashboard/pages/TaskList/TaskList";
 import EditTask from "../../Components/Dashboard/pages/EditTask/EditTask";
+import Profile from "../../Components/Dashboard/pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 
 const Route = createBrowserRouter([
@@ -32,7 +34,7 @@ const Route = createBrowserRouter([
     },
     {
         path:"/dashboard",
-        element:<DashBoardLayout/>,
+        element:<PrivateRoute><DashBoardLayout/></PrivateRoute>,
         children:[
             {
                 path:'addtask',
@@ -40,13 +42,18 @@ const Route = createBrowserRouter([
             },
             {
                 path:'tasklist',
-                element:<TaskList/>
+                element:<TaskList/>,
+                loader: () => fetch("https://server-tau-sage.vercel.app/taskCount")
             },
             {
                 path:'editask/:id',
                 element:<EditTask/>,
-                loader:({params}) => fetch(`http://localhost:5000/task/${params.id}`)
-            }
+                loader:({params}) => fetch(`https://server-tau-sage.vercel.app/task/${params.id}`)
+            },
+            {
+                path:'profile',
+                element:<Profile/>
+            },
         ]
     }
 ])

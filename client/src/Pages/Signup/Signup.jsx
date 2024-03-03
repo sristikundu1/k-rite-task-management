@@ -60,14 +60,6 @@ const SignUp = () => {
 
                         reset();
                         toast.success("You successfully sign up")
-                        // Swal.fire({
-                        //     position: "top-end",
-                        //     icon: "success",
-                        //     title: "You successfully sign up",
-                        //     showConfirmButton: false,
-                        //     timer: 1500
-                        // });
-
                         navigate("/");
 
 
