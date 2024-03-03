@@ -48,7 +48,7 @@ const Navbar = () => {
             </li>
             <li>
                 <NavLink
-                    to="/calender"
+                    to="/dashboard"
                     className={({ isActive, isPending }) =>
                         isPending ? "pending" : isActive ? "text-[#0a9396] underline " : ''
                     }
